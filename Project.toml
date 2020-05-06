@@ -1,0 +1,7 @@
+name = "KMesh"
+uuid = "fada9328-6ed4-48b7-a435-8abba3760771"
+authors = ["Kevin Silmore <ksil@users.noreply.github.com>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
