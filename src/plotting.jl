@@ -1,7 +1,4 @@
-module Plotting
-
-using KMesh
-using MATLAB
+using .MATLAB
 
 export trisurf, double_trisurf, trisurf_curvature
 
@@ -104,5 +101,3 @@ function plot_octree(o::MeshOctNode)
 
     mat"hold off"
 end
-
-end # module
