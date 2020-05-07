@@ -1,5 +1,7 @@
 module KMesh
 
+using Requires
+
 struct MeshInfo
 	t::Array{Int64,2}
 	nbor::Array{Int64,2}
@@ -40,5 +42,10 @@ export calculate_curvature, calculate_curvature!
 
 # octree.jl functions
 export find_closest_point, create_octree_from_mesh
+
+# include plotting code
+function __init__()
+	@require MATLAB="10e44e05-a98a-55b3-a45b-ba969058deb6" include("plotting.jl")
+end
 
 end # module
