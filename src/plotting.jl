@@ -1,5 +1,6 @@
 module Plotting
 
+using KMesh
 using MATLAB
 
 export trisurf, double_trisurf, trisurf_curvature
