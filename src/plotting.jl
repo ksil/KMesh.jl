@@ -18,7 +18,7 @@ function trisurf(p, t, fignum = 0; edgecolor = "k", linewidth = 0.5, facecolor =
         mat"trisurf($t', $p(:,1), $p(:,2), $p(:,3), 'edgecolor', $edgecolor, 'LineWidth', $linewidth, 'facecolor', $facecolor)"
     end
     
-    mat"axis equal; axis([-1 1 -1 1 0 1.5])"
+    mat"axis equal;"
     mat"camlight('right')"
     mat"material([0.4 0.8 0])"
 end
@@ -44,7 +44,7 @@ function double_trisurf(x1::Vector, x2::Vector, t1, t2, fignum = 0)
     mat"trisurf($t2', $tmp2(:,1), $tmp2(:,2), $tmp2(:,3), 'edgecolor', 'k', 'facecolor', 'k')"
     mat"hold off;"
     
-    mat"axis equal; axis([-1 1 -1 1 -1 1])"
+    mat"axis equal;"
 end
 
 function trisurf_curvature(p::Vector, mi::MeshInfo, fignum = 0)    
@@ -62,7 +62,7 @@ function trisurf_curvature(p::Vector, mi::MeshInfo, fignum = 0)
     mat"hold off;"
     mat"colorbar"
     
-    mat"axis equal; axis([-1 1 -1 1 -1 1])"
+    mat"axis equal;"
     mat"camlight('right')"
     mat"material([0.4 0.8 0])"
 end
