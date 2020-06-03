@@ -291,6 +291,62 @@ function contour_length(p, bndry_path)
 	return val
 end
 
+function bndry_tangents(p, bndry_path)
+	#= calculates the tangent vectors at the boundary of the mesh
+	using the central difference formula
+
+	INPUT
+	p - stacked vector of coordinates
+	bndry_path - edges of boundaries (separated by 0s)
+
+	OUTPUT
+	tangents - dictionary mapping ids of boundary nodes to tangent tuples
+	=#
+
+	D = Dict{Int64, NTuple{3,Float64}}
+
+	lastzero = 1
+	curzero = 1
+
+	while lastzero < length(bndry_path)
+		# find the next occurence of zero in bndry_path
+		while bndry_path[curzero] != 0
+			curzero += 1
+		end
+
+
+		# loop through the boundary nodes between occurences of zeros
+		# and deal with the first node in the cyclic list first
+		@assert bndry_path[lastzero] == bndry_path[curzero-1]
+		i1 = bndry_path[curzero-2]; i2 = bndry_path[curzero-1]
+		v1::NTuple{3, Float64} = (p[3*i2-2] - p[3*i1-2], p[3*i2-1] - p[3*i1-1], p[3*i2] - p[3*i1])
+
+		i1 = bndry_path[lastzero]
+
+		while lastzero < curzero - 1
+			i2 = bndry_path[lastzero + 1]
+
+			v2 = (p[3*i2-2] - p[3*i1-2], p[3*i2-1] - p[3*i1-1], p[3*i2] - p[3*i1])
+
+			# estimate first derivative at i1
+			d = dot(v1,v1).*v2 .+ dot(v2,v2).*v1
+			D[i1] = d ./ norm(d)
+
+			# since bndry_path is consecutive, update v1 and i1
+			v1 = v2
+			i1 = i2
+
+			lastzero += 1
+		end
+
+		curzero += 1
+		lastzero = curzero
+	end
+
+
+	return D
+end
+
 function area_volume(p, t)
 	#= calculates the surface area of a mesh
 	calculates the volume enclosed by a mesh using signed volumes
